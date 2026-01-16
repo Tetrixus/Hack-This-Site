@@ -1,0 +1,10 @@
+-------------------------
+Password can be send to Sam's email address using script on server side.
+
+   <form action="/missions/basic/4/level4.php" method="post">
+    <input type="hidden" name="to" value="sam@hackthissite.org" /> <--This
+    <input type="submit" value="Send password to Sam" /></form>
+
+Address is send from client to server and we can easly change it to other
+email by editing hidden field of the form. Problem could be avoided by storing adress
+on server side.

@@ -1,0 +1,11 @@
+------------------------------
+This time Sam indeed uploaded the password file and he kind enough
+to provide us with name of it in hidden field of the form.
+
+<form action="/missions/basic/3/index.php" method="post">
+<input type="hidden" name="file" value="password.php">  <-- THIS
+<input type="password" name="password"><br><br>
+<input type="submit" value="submit"></form>
+
+To access it we need to type it in URL:
+https://www.hackthissite.org/missions/basic/3/password.php
