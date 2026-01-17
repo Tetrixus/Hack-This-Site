@@ -7,11 +7,11 @@ which was turned in to "abc". To confirm it i tryed "(((" which was encrypted in
 
 
 Basicaly encryption of string depends which character in string it is and it determinates
-how far it is pushed ahead in asci table.
+how far it is pushed ahead in ASCI table.
 
-a is nr 97 in asci table
-b is nr 98 in asci table
-c is nr 99 in asci table
+a is nr 97 in ASCI table
+b is nr 98 in ASCI table
+c is nr 99 in ASCI table
 
 
 [0] (97)  a -> (97 + 0 = 97)  a
@@ -24,9 +24,9 @@ c is nr 99 in asci table
 
 Same checked out with special characters
 
-( is nr 40 in asci table
-) is nr 41 in asci table
-* is nr 42 in asci table
+( is nr 40 in ASCI table
+) is nr 41 in ASCI table
+* is nr 42 in ASCI table
 
 
 [0] (40)  ( -> (40 + 0 = 40)  (
