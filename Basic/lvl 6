@@ -1,4 +1,4 @@
------------------------------
+----------------------------
 It seems like simple encryption system has been implemented,
 where every character exept firsth is pushed one, than two than three... and so one
 characters ahead in ASCI table. I figured it out by typing in "aaa" in the form,
