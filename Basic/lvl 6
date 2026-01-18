@@ -35,7 +35,7 @@ Same checked out with special characters
 
 
 
-It's clear that to revert encryption we must do oposite on the string "98f3=8?7"
+It's clear that to revert encryption we must do oposite to given string. Mine is: "98f3=8?7"
 
 [0] (57)  9 -> (57  -  0 = 57)  9
 [1] (56)  8 -> (56  -  1 = 55)  7
@@ -47,3 +47,21 @@ It's clear that to revert encryption we must do oposite on the string "98f3=8?7"
 [7] (55)  7 -> (55  -  7 = 48)  0
 
 So I ended up with password: 97d093930
+
+```python
+encrypted = "98f3=8?7"
+y = 0
+ASCII = []
+
+
+
+for i in encrypted:
+    ASCII.append(ord(i) - y)
+    y += 1
+
+
+
+decoded = "".join(map(chr,ASCII))
+
+print(decoded)
+```
