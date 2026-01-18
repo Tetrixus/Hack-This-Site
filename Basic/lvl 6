@@ -48,6 +48,13 @@ It's clear that to revert encryption we must do oposite to given string. Mine is
 
 So I ended up with password: 97d093930
 
+
+It took me around 1 minute to manualy write it down looking at ASCII table...
+So i decided to spend additional 3 minutes on coding it,
+to automate the task i'll most likely never have to do ever again.
+
+Here is a simple python script
+
 ```
 encrypted = "98f3=8?7"
 y = 0
