@@ -1,0 +1,6 @@
+--------------------------------------
+Same case as in lvl 8. They gave us even exact path to file: /var/www/hackthissite.org/html/missions/basic/9/
+
+Go back to lvl 8 form and type: <!--#exec cmd="ls /var/www/hackthissite.org/html/missions/basic/9/" -->
+
+Than it's same story.

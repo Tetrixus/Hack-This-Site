@@ -1,0 +1,11 @@
+-----------------------------------
+Presented PHP script is prone to SSI (Server-Side Includes) injection attacks which combined
+with path traversal (also called dot dot slash) attack leaks password file. The SSI attack allows to exploit website by injecting
+scripts in HTML pages or attaching files with code to execute remotely. Firsth thing i did i typed "!"
+as a name to see if it will be sanetized, aaaaand it wasnt. It is generaly very bad (or good, depends...)
+sign when you are allowed to use characters like: < ! # = / . " - >
+
+Than 2nd hint was .shtml web extension, that indicates (as well as .stm, .shtm) that SSI is enabled.
+It was smooth sail from there on. I used command: <!--#exec cmd="ls ../" -->
+
+It gave me list of files in main folder of the puzzle where i found file with password.

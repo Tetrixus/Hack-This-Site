@@ -1,0 +1,10 @@
+---------------------------------
+UNIX cal comamnd is used with input that we provide, therefore we may use
+operand && or ; to inject additional command ls after cal is runned to display files.
+
+'1 && ls' -> && enshures previous command runned without problems before going to ls
+'1 ; ls'  -> ; ignores whatever happend before and runs ls right away
+
+THere is not much to write about this challenge...
+Sanitize! Sanitize! Sanitize again!
+Never trust user input.

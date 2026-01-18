@@ -1,0 +1,109 @@
+------------------------------------------------------
+I feel like i cheesed that one. Well definitely didn't do it in a way they intended me to to do, but hey!
+If it works it works! Firsth thing i noticed is lack of typical index.php as usually, so i checked it out
+and found login page. That's a good start.
+
+
+It seems like apache server is poorly configurated so i expected to find files like
+.htaccess and .htpasswd in plain view. I tryed it right away but it didn't work. Sooo...
+Instead of breaking my head over it i fuzzed the whole thing, and proceded to watch movie on other screen.
+Literally... i took big.txt dictionary and just slammed it on the thing XD
+
+```
+ffuf -u https://www.hackthissite.org/missions/basic/11/FUZZ -w /usr/share/wordlists/dirb/big.txt
+        /'***\ /'***\ /'***
+       /\ _*/ /\ _*/ __ __ /\ _*/
+       \ \ ,**\ \ ,**/\ /\ \ \ \ ,**
+        \ \ _/ \ \ _/\ \ _\ \ \ \ _/
+         \ _\ \ _\ \ _***/ \ _
+          /*/ /*/ /***/ /_/
+       v2.1.0-dev
+
+ :: Method : GET
+ :: URL : https://www.hackthissite.org/missions/basic/11/FUZZ
+ :: Wordlist : FUZZ: /usr/share/wordlists/dirb/big.txt
+ :: Follow redirects : false
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 40
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+
+acerca-de       [Status: 302, Size: 292, Words: 12, Lines: 8, Duration: 541ms]
+at-de           [Status: 302, Size: 288, Words: 12, Lines: 8, Duration: 520ms]
+be-fr           [Status: 302, Size: 288, Words: 12, Lines: 8, Duration: 574ms]
+c-albelli-fr    [Status: 302, Size: 295, Words: 12, Lines: 8, Duration: 694ms]
+c-albelli-de    [Status: 302, Size: 295, Words: 12, Lines: 8, Duration: 610ms]
+c-albelli-it    [Status: 302, Size: 295, Words: 12, Lines: 8, Duration: 607ms]
+ca-fr           [Status: 302, Size: 288, Words: 12, Lines: 8, Duration: 3613ms]
+c-albelli-be-fr [Status: 302, Size: 298, Words: 12, Lines: 8, Duration: 4307ms]
+ch-de           [Status: 302, Size: 288, Words: 12, Lines: 8, Duration: 1590ms]
+ch-fr           [Status: 302, Size: 288, Words: 12, Lines: 8, Duration: 618ms]
+de-de           [Status: 302, Size: 288, Words: 12, Lines: 8, Duration: 544ms]
+dk-de           [Status: 302, Size: 288, Words: 12, Lines: 8, Duration: 622ms]
+e               [Status: 301, Size: 256, Words: 14, Lines: 8, Duration: 564ms]  <- something interesting
+es-es           [Status: 302, Size: 288, Words: 12, Lines: 8, Duration: 607ms]
+eu-fr           [Status: 302, Size: 288, Words: 12, Lines: 8, Duration: 2218ms]
+[WARN] Caught keyboard interrupt (Ctrl-C)
+```
+
+
+After a while i found some respose with status that stood out, so i tryed it and it leaded me to dicovery of path of folders:
+
+https://www.hackthissite.org/missions/basic/11/e/l/t/o/n/
+
+Happy with result I slammed the same big.txt on it again.
+Hey! Don't quit winning team, right?
+Shortly after it found file i was looking for.
+
+
+ffuf -u https://www.hackthissite.org/missions/basic/11/e/l/t/o/n/FUZZ -w /usr/share/wordlists/dirb/big.txt
+        /'***\ /'***\ /'***
+       /\ _*/ /\ _*/ __ __ /\ _*/
+       \ \ ,**\ \ ,**/\ /\ \ \ \ ,**
+        \ \ _/ \ \ _/\ \ _\ \ \ \ _/
+         \ _\ \ _\ \ _***/ \ _
+          /*/ /*/ /***/ /_/
+       v2.1.0-dev
+
+ :: Method : GET
+ :: URL : https://www.hackthissite.org/missions/basic/11/e/l/t/o/n/FUZZ
+ :: Wordlist : FUZZ: /usr/share/wordlists/dirb/big.txt
+ :: Follow redirects : false
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 40
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+
+.htaccess [Status: 200, Size: 80, Words: 6, Lines: 5, Duration: 1036ms]         <-This, status 200, solid hit.
+.htpasswd [Status: 403, Size: 15136, Words: 1274, Lines: 220, Duration: 881ms]
+[WARN] Caught keyboard interrupt (Ctrl-C)
+
+
+
+Inside of .htaccess file i found this:
+
+IndexIgnore DaAnswer.* .htaccess
+<Files .htaccess>
+require all granted
+</Files>
+
+
+Than i checked "DaAnswer":
+
+https://www.hackthissite.org/missions/basic/11/e/l/t/o/n/DaAnswer
+
+
+Witch rewarded me with small text: The answer is here! Just look a little harder.
+
+After that I got stuck for.. good chunk of time. I want to keep some of
+my dignity so i am not gonna say how long it took... but i finished the movie.
+
+This part of challenge reminds me of my old WI-FI password. When some of my friend asked me about it,
+I used to say: "It's alphabet, two times and backward."
+And i was crying out of loud, while looking at them trying to type it like: zyxwvutsr....
+And so on... Damn i thought i am the wittest of the wittest with this joke.
+While it was literally: "tebahplatebahpla"
+
+Imagine my face when The answer to the puzzle was acctually "HERE", "The answer is here! Just look a little harder".
+
+Anyhow It worked with login form and I completed basic  part of the website :D
