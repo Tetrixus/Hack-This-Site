@@ -48,7 +48,7 @@ It's clear that to revert encryption we must do oposite to given string. Mine is
 
 So I ended up with password: 97d093930
 
-```python
+```
 encrypted = "98f3=8?7"
 y = 0
 ASCII = []
