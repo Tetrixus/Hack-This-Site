@@ -1,0 +1,16 @@
+----------------------------------------
+This challenge i fuzzed right away to see what i am working with, rather than cracking my
+head over it right away. Honestly FFUF became my to go tool for those challenges jsut to 
+try to collect some data to have something to think about. 
+
+In this case I found oldindex, that had old website stored in it.
+Seems like attacker was nice enough to do not delete everything,
+and just replace current index.html with those bolonies.
+
+(everyone knows greatest country in the world is Japan, they gave us anime, manga and guitar Ibanez xD)
+
+After exploring original website i found out that they let users use form to upload their poems.
+They do now show them right away but they store it for review. That's exacly what i needed.
+All I had to do was to copy whole body of oldindex and save it with a name: ../index.html
+
+A little bit of path traversal did the job.

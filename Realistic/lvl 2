@@ -1,0 +1,16 @@
+------------------------------------
+There is nothing particularly interesting about this website. No forms, no links to click at firsth glance.
+Untill i spoted hidden link on botton of it that leaded me to login page.
+
+After typing some special characters to see if they are sanitized and i found out i was managed to produce
+SQL error by typing:
+
+'asdffgh
+
+It is not any specific command, but quotation mark that escapes querry followed by gibberish that breaks SQL logic.
+Next i tryed SQL injection attack to overwrite it with new one. Here is the payload i used for this level:
+
+' or 1=1 --
+
+What it does is asking to login if username is empty or 1=1. Username is not empty but 1 is equal to 1,
+so it is correct for that part, and rest of code checking password i just commented out with --

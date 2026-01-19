@@ -1,0 +1,8 @@
+-----------------------------------
+On website you may vote on your favourite band and give them note raging from 1 up to 5. List is made based on highest avarage ratings of voters. Firsth band must be crazy good since they scored avarage 22,3!
+
+That gave me idea that maybe i can vote with higher rating than 5. After analyzing website source code i realised
+that values you are submiting are stored on client side of the script which is a big no, no from security point of view.
+
+I used Mozilla devtools inspector to change value from 5 to 99999 before submiting, and et voila!
+Raging Inferno is rocking first place on the list.
