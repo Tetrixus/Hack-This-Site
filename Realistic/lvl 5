@@ -1,0 +1,20 @@
+-------------------------------------------------------
+First thing i did was to fuzz to it. The more intel I get the easier job usually is, right?
+After a while I found there are folders /lib and /secret availble as well as robots.txt file.
+
+Now i started to look at the website, sub-sites and source code. I found some login form but i coudn't produce any errors with it. It seems also like admin have problems with crawlers
+browsing part of his website he want to keep private. That's exacly
+what robots.txt file is for. I think they wanted me to figure it out this way but I absolutely
+brute forced the whole thing.
+
+In lib i found hash file (which i absolutely ignored throu whole challange ¯\_(ツ)_/¯ )
+
+In secrets I found admin.php which is as I assume website i need to access and admin.bak.php
+which seems to be some kind of back up. In back up file i found hashed text.
+
+Than i brute-forced the hash with hashcat and since MD5 is way more secure i started with MD4
+and... well.. it just worked ¯\_(ツ)_/¯.
+
+hashcat -a 3 -m 900 andherewassometextifound
+
+Later after I completed challenge i get back to hash file i found in /lib. I used cat on it to read it, most of it was gibberish, but MD4 was mentioned here and there so i guess it was another hint i ignored while brute-forcing my way ¯\_(ツ)_/¯
