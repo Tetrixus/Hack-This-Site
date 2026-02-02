@@ -17,4 +17,7 @@ and... well.. it just worked ¯\_(ツ)_/¯.
 
 hashcat -a 3 -m 900 andherewassometextifound
 
-Later after I completed challenge i get back to hash file i found in /lib. I used cat on it to read it, most of it was gibberish, but MD4 was mentioned here and there so i guess it was another hint i ignored while brute-forcing my way ¯\_(ツ)_/¯
+Later after I completed challenge i get back to hash file i found in /lib.
+I used cat on it to read it, most of it was gibberish, but MD4 was mentioned
+here and there so i guess it was another hint i ignored while
+brute-forcing my way ¯\_(ツ)_/¯
