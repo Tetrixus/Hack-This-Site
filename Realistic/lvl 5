@@ -1,4 +1,4 @@
--------------------------------------------------------
+------------------------------------------------------
 First thing i did was to fuzz to it. The more intel I get the easier job usually is, right?
 After a while I found there are folders /lib and /secret availble as well as robots.txt file.
 
