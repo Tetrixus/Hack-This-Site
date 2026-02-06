@@ -1,1 +1,39 @@
 -----------------------------------------------------------
+Challenge is about to get into admin part of website. So firsth i need to find where is it.
+
+So i FUZZED it... ¯\_(ツ)_/¯
+Yeaah... before I start to reak my brain i like to get as much intel from auto tools as i can.
+(problem? :P)
+
+
+~~MEANWHILE~~
+
+On main page there  was nothing worth attention but there were 3 links that leaded to subsites, and oh boy...
+All images there were stored in folder /images therefore I tryed to access that folder and what to say... BINGO!
+I found folder /admin tho I coudn't access it as it asked for credentials. So there must be some authentication
+mechanism. Next I tryed various of attacks like SQL Injection, XSS but nothing worked coudn't even produce
+any kinda of error. I didn't know what am i dealing with tbh... 
+
+
+
+Than I've noticed URL is looking sketchy as fuck...
+
+www.hackthissite.org/missions/realistic/7/showimages.php?file=bush.txt
+
+It seems like there is some some script at showimages.php that loads files.
+I wonder if I could use it to my adventage. I Tried to load some bullshit and it said there is no such a file.
+
+Next i tried it on /admin/index.php and it said that i cannot load this file. That was something different,
+it made me pounder (damn i wanted to use that word for a while ;]) if I could load something else.
+Thought occured to me that it could be apache server. So i checked for .htaccess file.
+
+SOMETHING tried to load. But it coudnt becous apparently it expected image so it loaded me kinda "broken" image
+on surface but in source code it tried to refer to .htpasswd file which assured me that it was apache server.
+Obviously it made me try to grab .htpasswd file (which also loaded some crap on surface) but in source code
+it gave me hash value of password assigned to administrator. Still i didn't have idea what kind of hash is it.
+Later after I've done some reading I learned that hashes that are starting with $1$ are MD-crypto-something-hashes,
+but since I didn't know what I am dealing with i coudnt use my favourite hashcat (yes i like cats) as it is VERY precise
+program and I must specify EVERY-FUCKING-THING in order to make it work... So i used John The Ripper which is
+very forgiving and it detected type of hash and broke it on itself. Literlly in seconds becous password sucked ass..
+It was "shadow" which was probly like top 10 passwords on list.
+
