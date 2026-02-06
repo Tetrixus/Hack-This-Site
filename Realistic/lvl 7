@@ -37,3 +37,9 @@ program and I must specify EVERY-FUCKING-THING in order to make it work... So i 
 very forgiving and it detected type of hash and broke it on itself. Literlly in seconds becous password sucked ass..
 It was "shadow" which was probly like top 10 passwords on list.
 
+So I completed puzzle before ffuf finished enumerating things xD
+
+I even found those bush.txt in main folder but it had nothing special inside. It was just a hind towards /images folder.
+
+There! Done! Next!
+
